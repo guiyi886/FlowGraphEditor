@@ -16,41 +16,52 @@ import javax.imageio.ImageIO;
 import java.io.*;
 import java.util.ArrayList;
 
+// 文件菜单控制器
 public class FileMenuController {
 
-    int maxId = 0;
+    int maxId = 0; // 最大ID
 
+    // 保存绘图区内容
     public void saveDrawingArea(DrawController drawController) {
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("保存文件");
-        //fileChooser.getExtensionFilters().add(new ExtensionFilter("流程图文件", "*.txt"));
 
+        // 弹出保存文件对话框
         File selectedFile = fileChooser.showSaveDialog(stage);
-        if (selectedFile == null) return; // 用户没有选中文件, 已经取消操作
+        if (selectedFile == null) {
+            return; // 用户取消操作
+        }
+
         try {
-            // ObjectOutputStream 对象输出流
+            // 将绘图区内容序列化并保存到文件
             ArrayList<MyShapeAndMyLine> myShapeAndMyLines = drawController.translate();
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(selectedFile));
             oos.writeObject(myShapeAndMyLines);
-            //System.out.println("对象序列化成功！");
             oos.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    // 打开文件获取绘图区内容
     public void getDrawingArea(ShapeFactory shapeFactory, DrawController drawController) {
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("打开文件");
-        //fileChooser.getExtensionFilters().add(new ExtensionFilter("流程图文件", "*.txt"));
+
+        // 弹出打开文件对话框
         File selectedFile = fileChooser.showOpenDialog(stage);
-        if (selectedFile == null) return; // 用户没有选中文件, 已经取消操作
+        if (selectedFile == null) {
+            return; // 用户取消操作
+        }
+
         try {
+            // 从文件中读取绘图区内容并创建相应的形状和线条
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(selectedFile));
             ArrayList<MyShapeAndMyLine> list = (ArrayList<MyShapeAndMyLine>) ois.readObject();
             ArrayList<ArrayList<String>> cssList = new ArrayList<ArrayList<String>>();
+
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getId() > maxId) {
                     maxId = list.get(i).getId();
@@ -58,16 +69,19 @@ public class FileMenuController {
                 shapeFactory.produce(list.get(i).getKind(), list.get(i).getX(), list.get(i).getY(), list.get(i).getWidth(), list.get(i).getHeight(), list.get(i).getText(), list.get(i).getId());
                 cssList.add(list.get(i).getConnectionInfosString());
             }
-            //必须在导入完所有信息后再保存连接信息，不然会由于连接到图形的线还没有导入，没有指针指向这条线。于是发生空指针错误
+
+            // 设置连接信息
             for (int i = 0; i < drawController.getList().size(); i++) {
                 drawController.getList().get(i).setCSS(cssList.get(i));
             }
+
             ShapeFactory.countShapeID = maxId + 1;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    // 导出绘图区内容为图片
     public void exportDrawingArea(AnchorPane drawingArea) {
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
@@ -76,14 +90,18 @@ public class FileMenuController {
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"));
         File saveFile = fileChooser.showSaveDialog(stage);
         WritableImage image = drawingArea.snapshot(new SnapshotParameters(), null);
-        if (saveFile == null) return; // 用户没有选中文件, 已经取消操作
+        if (saveFile == null) {
+            return; // 用户取消操作
+        }
         try {
+            // 将绘图区内容导出为图片
             ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", saveFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    // 显示帮助信息
     public void help() {
         Stage stage1 = new Stage();
         BorderPane root = new BorderPane();
