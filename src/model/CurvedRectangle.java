@@ -58,7 +58,7 @@ public class CurvedRectangle extends MyShape {
         double upLeftY = this.y - height;
         double upRightX = this.x + width;
         double upRightY = this.y - height;
-
+        double y;
         // 波浪线的参数
         double A = height / 4; // 振幅
         double dx = 2 * width / ARC_NUM; // 点之间的水平距离
