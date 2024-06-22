@@ -1,0 +1,34 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+/*#rootLayout {
+    -fx-background-color: #587aff;
+}*/
+
+/*菜单栏 */
+.menu-bar {
+    -fx-padding: 5 5;
+    -fx-background-color: rgb(149, 122, 243);
+}
+
+.menu {
+    -fx-padding: 3;
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-opacity: 0.9;
+}
+
+.menu:hover {
+    -fx-background-color: #C0C0C0;
+    -fx-padding: 3 3;
+}
+
+/*菜单下拉栏 */
+.context-menu {
+    -fx-border-style: solid;
+}
+
+.menultem:hover {
+    -fx-border-style: solid;
+}

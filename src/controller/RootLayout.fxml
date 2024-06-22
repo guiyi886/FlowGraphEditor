@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane fx:id="rootLayout" prefHeight="902.0" prefWidth="1317.0" stylesheets="@application.css"
+            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.RootLayoutController">
+    <top>
+        <MenuBar prefHeight="29.0" prefWidth="1289.0" BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="文件">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#menuNew" text="新建"/>
+                        <MenuItem mnemonicParsing="false" onAction="#menuSave" text="保存"/>
+                        <MenuItem mnemonicParsing="false" onAction="#menuOpen" text="打开"/>
+                        <MenuItem mnemonicParsing="false" onAction="#menuExport" text="导出"/>
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="帮助">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#menuHelp" text="关于"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <content>
+                <AnchorPane fx:id="drawingArea" minHeight="0.0" minWidth="0.0" prefHeight="974.0" prefWidth="1240.0">
+                    <children>
+                        <TextField fx:id="textField" visible="false"/>
+                    </children>
+                </AnchorPane>
+            </content>
+        </ScrollPane>
+    </center>
+    <left>
+        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox fx:id="shapeArea" prefHeight="820.0" prefWidth="175.0">
+                    <children>
+                        <ImageView fx:id="RoundRectangle" fitHeight="100.0" fitWidth="200.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@image/图片 1.png"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="Rectangle" fitHeight="97.0" fitWidth="200.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@image/图片 2.png"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="Decision" fitHeight="108.0" fitWidth="198.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@image/图片 3.png"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="InputRectangle" fitHeight="103.0" fitWidth="200.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@image/图片 4.png"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="Circular" fitHeight="118.0" fitWidth="199.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@image/图片 5.png"/>
+                            </image>
+                        </ImageView>
+                        <ImageView fx:id="CurvedRectangle" fitHeight="112.0" fitWidth="199.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <Image url="@image/图片 6.png"/>
+                        </ImageView>
+                        <ImageView fx:id="MyLine" fitHeight="113.0" fitWidth="204.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <Image url="@image/图片7.png"/>
+                        </ImageView>
+                        <ImageView fx:id="BrokenLine" fitHeight="118.0" fitWidth="199.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@image/图片8.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </VBox>
+            </children>
+        </AnchorPane>
+    </left>
+</BorderPane>
