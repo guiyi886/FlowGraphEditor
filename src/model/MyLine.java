@@ -12,6 +12,9 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 直线类，kind是MyLine
  */
@@ -49,6 +52,28 @@ public class MyLine {
 
     // 对应界面的单行输入框
     public static TextField textField;
+
+    // 定义一个Map来存储颜色名称和对应的Color对象
+    public static final Map<String, Color> colorMap = new HashMap<>();
+
+    // 静态代码块，初始化颜色映射
+    static {
+        /*colorMap.put("蓝", Color.BLUE);
+        colorMap.put("红", Color.RED);
+        colorMap.put("绿", Color.GREEN);
+        colorMap.put("黄", Color.YELLOW);
+        colorMap.put("紫", Color.PURPLE);
+        colorMap.put("黑", Color.BLACK);
+        colorMap.put("白", Color.WHITE);*/
+        colorMap.put("蓝", Color.web("#BBE9FF"));
+        colorMap.put("红", Color.web("#FF5580"));
+        colorMap.put("绿", Color.web("#CDFADB"));
+        colorMap.put("黄", Color.web("#F6FFA4"));
+        colorMap.put("紫", Color.web("#E2BBE9"));
+        colorMap.put("黑", Color.web("#474F7A"));
+        //colorMap.put("白", Color.web("#EEF7FF"));
+        colorMap.put("白", Color.WHITE);
+    }
 
     // 获取起始点和结束点坐标的方法
     public double getSX() {
@@ -217,6 +242,12 @@ public class MyLine {
         // 重置文本位置
         text.setX((startX + endX) / 2);
         text.setY((startY + endY) / 2);
+
+        // 设置颜色
+        //System.out.println(kind);
+        line.setStroke(colorMap.get(RootLayoutController.imageToColorMaps.get(kind)));
+        polygon.setFill(colorMap.get(RootLayoutController.imageToColorMaps.get(kind)));
+        //line.setFill(Color.BLUE);
 
         //setAllVisiable(true); // 设置可见状态 ！！！！！
     }

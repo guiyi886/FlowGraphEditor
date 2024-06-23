@@ -21,6 +21,7 @@ public class MyRectangle extends MyShape {
         setMyShape(rectangle);
         setShape();
         this.id = id;
+        //rectangle.setFill(Color.LIGHTBLUE); //设置颜色
     }
 
     /**

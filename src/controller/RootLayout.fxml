@@ -41,50 +41,82 @@
             <children>
                 <VBox fx:id="shapeArea" prefHeight="820.0" prefWidth="175.0">
                     <children>
-                        <ImageView fx:id="RoundRectangle" fitHeight="100.0" fitWidth="200.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <image>
-                                <Image url="@image/图片 1.png"/>
-                            </image>
-                        </ImageView>
-                        <ImageView fx:id="Rectangle" fitHeight="97.0" fitWidth="200.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <image>
-                                <Image url="@image/图片 2.png"/>
-                            </image>
-                        </ImageView>
-                        <ImageView fx:id="Decision" fitHeight="108.0" fitWidth="198.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <image>
-                                <Image url="@image/图片 3.png"/>
-                            </image>
-                        </ImageView>
-                        <ImageView fx:id="InputRectangle" fitHeight="103.0" fitWidth="200.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <image>
-                                <Image url="@image/图片 4.png"/>
-                            </image>
-                        </ImageView>
-                        <ImageView fx:id="Circular" fitHeight="118.0" fitWidth="199.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <image>
-                                <Image url="@image/图片 5.png"/>
-                            </image>
-                        </ImageView>
-                        <ImageView fx:id="CurvedRectangle" fitHeight="112.0" fitWidth="199.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <Image url="@image/图片 6.png"/>
-                        </ImageView>
-                        <ImageView fx:id="MyLine" fitHeight="113.0" fitWidth="204.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <Image url="@image/图片7.png"/>
-                        </ImageView>
-                        <ImageView fx:id="BrokenLine" fitHeight="118.0" fitWidth="199.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <image>
-                                <Image url="@image/图片8.png"/>
-                            </image>
-                        </ImageView>
+                        <HBox>
+                            <ImageView fx:id="RoundRectangle" fitHeight="100.0" fitWidth="165.0" pickOnBounds="true"
+                                       preserveRatio="true">
+                                <image>
+                                    <Image url="@image/图片1.png"/>
+                                </image>
+                            </ImageView>
+                            <Label fx:id="colorLabel1" text="白" minWidth="50" minHeight="100" alignment="CENTER"
+                                   style="-fx-background-color: #ffffff;"/>
+                        </HBox>
+                        <HBox>
+                            <ImageView fx:id="Rectangle" fitHeight="100.0" fitWidth="165.0" pickOnBounds="true"
+                                       preserveRatio="true">
+                                <image>
+                                    <Image url="@image/图片2.png"/>
+                                </image>
+                            </ImageView>
+                            <Label fx:id="colorLabel2" text="白" minWidth="50" minHeight="97" alignment="CENTER"
+                                   style="-fx-background-color: #ffffff;"/>
+                        </HBox>
+                        <HBox>
+                            <ImageView fx:id="Decision" fitHeight="100.0" fitWidth="165.0" pickOnBounds="true"
+                                       preserveRatio="true">
+                                <image>
+                                    <Image url="@image/图片3.png"/>
+                                </image>
+                            </ImageView>
+                            <Label fx:id="colorLabel3" text="白" minWidth="50" minHeight="108" alignment="CENTER"
+                                   style="-fx-background-color: #ffffff;"/>
+                        </HBox>
+                        <HBox>
+                            <ImageView fx:id="InputRectangle" fitHeight="100.0" fitWidth="165.0" pickOnBounds="true"
+                                       preserveRatio="true">
+                                <image>
+                                    <Image url="@image/图片4.png"/>
+                                </image>
+                            </ImageView>
+                            <Label fx:id="colorLabel4" text="白" minWidth="50" minHeight="103" alignment="CENTER"
+                                   style="-fx-background-color: #ffffff;"/>
+                        </HBox>
+                        <HBox>
+                            <ImageView fx:id="Circular" fitHeight="100.0" fitWidth="165.0" pickOnBounds="true"
+                                       preserveRatio="true">
+                                <image>
+                                    <Image url="@image/图片5.png"/>
+                                </image>
+                            </ImageView>
+                            <Label fx:id="colorLabel5" text="白" minWidth="50" minHeight="118" alignment="CENTER"
+                                   style="-fx-background-color: #ffffff;"/>
+                        </HBox>
+                        <HBox>
+                            <ImageView fx:id="CurvedRectangle" fitHeight="100.0" fitWidth="165.0" pickOnBounds="true"
+                                       preserveRatio="true">
+                                <Image url="@image/图片6.png"/>
+                            </ImageView>
+                            <Label fx:id="colorLabel6" text="白" minWidth="50" minHeight="112" alignment="CENTER"
+                                   style="-fx-background-color: #ffffff;"/>
+                        </HBox>
+                        <HBox>
+                            <ImageView fx:id="MyLine" fitHeight="100.0" fitWidth="165.0" pickOnBounds="true"
+                                       preserveRatio="true">
+                                <Image url="@image/图片7.png"/>
+                            </ImageView>
+                            <Label fx:id="colorLabel7" text="黑" minWidth="50" minHeight="113" alignment="CENTER"
+                                   style="-fx-background-color: #474F7A;"/>
+                        </HBox>
+                        <HBox>
+                            <ImageView fx:id="BrokenLine" fitHeight="100.0" fitWidth="165.0" pickOnBounds="true"
+                                       preserveRatio="true">
+                                <image>
+                                    <Image url="@image/图片8.png"/>
+                                </image>
+                            </ImageView>
+                            <Label fx:id="colorLabel8" text="黑" minWidth="50" minHeight="118" alignment="CENTER"
+                                   style="-fx-background-color: #474F7A;"/>
+                        </HBox>
                     </children>
                 </VBox>
             </children>

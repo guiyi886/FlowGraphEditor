@@ -4,6 +4,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -12,7 +13,11 @@ import javafx.scene.layout.VBox;
 import model.MyShape;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
+
+import static model.MyLine.colorMap;
 
 // 根面板的控制器
 // 这个类中要把用到的控件都加进来，不然这些控件就不存在
@@ -42,6 +47,103 @@ public class RootLayoutController implements Initializable {
     private ImageView MyLine;
     @FXML
     private ImageView BrokenLine;
+
+    @FXML
+    private Label colorLabel1;
+    @FXML
+    private Label colorLabel2;
+    @FXML
+    private Label colorLabel3;
+    @FXML
+    private Label colorLabel4;
+    @FXML
+    private Label colorLabel5;
+    @FXML
+    private Label colorLabel6;
+    @FXML
+    private Label colorLabel7;
+    @FXML
+    private Label colorLabel8;
+
+    //private final Color[] colors = {Color.BLUE, Color.RED, Color.PURPLE};
+    private final String[] colorNames = {"白", "黑", "蓝", "红", "绿", "黄", "紫",};
+    private int colorIndex = 0;
+    public static final Map<String, String> imageToColorMaps = new HashMap<>();
+
+    /*@FXML
+    private void initialize() {
+        // 添加调试信息
+        System.out.println("colorLabel1: " + colorLabel1);
+        System.out.println("colorLabel2: " + colorLabel2);
+        System.out.println("colorLabel3: " + colorLabel3);
+        System.out.println("colorLabel4: " + colorLabel4);
+        System.out.println("colorLabel5: " + colorLabel5);
+        System.out.println("colorLabel6: " + colorLabel6);
+        System.out.println("colorLabel7: " + colorLabel7);
+        System.out.println("colorLabel8: " + colorLabel8);
+
+        setupImageView(RoundRectangle, colorLabel1);
+        setupImageView(Rectangle, colorLabel2);
+        setupImageView(Decision, colorLabel3);
+        setupImageView(InputRectangle, colorLabel4);
+        setupImageView(Circular, colorLabel5);
+        setupImageView(CurvedRectangle, colorLabel6);
+        setupImageView(MyLine, colorLabel7);
+        setupImageView(BrokenLine, colorLabel8);
+
+        // 设置鼠标手势
+        colorLabel1.setCursor(Cursor.HAND);
+        colorLabel2.setCursor(Cursor.HAND);
+        colorLabel3.setCursor(Cursor.HAND);
+        colorLabel4.setCursor(Cursor.HAND);
+        colorLabel5.setCursor(Cursor.HAND);
+        colorLabel6.setCursor(Cursor.HAND);
+        colorLabel7.setCursor(Cursor.HAND);
+        colorLabel8.setCursor(Cursor.HAND);
+    }*/
+
+    private void setupImageView(ImageView imageView, Label colorLabel) {
+        String shapeName = imageView.getId();
+        if (shapeName.equals("Rectangle")) {
+            //System.out.println(111);
+            shapeName = "MyRectangle";
+        } else if (shapeName.equals("Circular")) {
+            shapeName = "MyCircle";
+        }
+        if (imageView.getId().equals("MyLine") || imageView.getId().equals("BrokenLine")) {
+            imageToColorMaps.put(shapeName, colorNames[1]);
+        } else {
+            imageToColorMaps.put(shapeName, colorNames[0]);
+        }
+        colorLabel.setOnMouseClicked(event -> {
+            //String str=imageView.getId();
+            //System.out.println(imageView.getId());
+            // 切换颜色
+            colorIndex = (colorIndex + 1) % colorNames.length;
+            String newColorName = colorNames[colorIndex];
+
+            // 更新颜色文本
+            colorLabel.setText(newColorName);
+
+            String shapeName2 = imageView.getId();
+            if (shapeName2.equals("Rectangle")) {
+                //System.out.println(111);
+                shapeName2 = "MyRectangle";
+            } else if (shapeName2.equals("Circular")) {
+                shapeName2 = "MyCircle";
+            }/*else if(shapeName.equals("BrokenLine")){
+                shapeName="MyRectangle";
+            }*/
+            String argbColor = colorMap.get(newColorName).toString(); // 32位的ARGB颜色值
+
+            String color = argbColor.substring(2, 8);
+            System.out.println(newColorName + " " + color);
+            //System.out.println(colorMap.get(newColorName));
+            //String color = String.format("#%08X", colorMap.get(newColorName));
+            colorLabel.setStyle("-fx-background-color: #" + color + ";");
+            imageToColorMaps.put(shapeName2, newColorName);
+        });
+    }
 
     // 当形状或线的对象被单击、拖拽、改变大小时，clickCount 置为 1，clickCount 为 0 说明点的是空白处，要把所有图形取消选中
     public static int clickCount = 0;
@@ -84,6 +186,15 @@ public class RootLayoutController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        setupImageView(RoundRectangle, colorLabel1);
+        setupImageView(Rectangle, colorLabel2);
+        setupImageView(Decision, colorLabel3);
+        setupImageView(InputRectangle, colorLabel4);
+        setupImageView(Circular, colorLabel5);
+        setupImageView(CurvedRectangle, colorLabel6);
+        setupImageView(MyLine, colorLabel7);
+        setupImageView(BrokenLine, colorLabel8);
+
         // 设置鼠标手势
         RoundRectangle.setCursor(Cursor.HAND);
         Rectangle.setCursor(Cursor.HAND);

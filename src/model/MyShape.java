@@ -12,6 +12,8 @@ import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class MyShape {
     //哪种图形
@@ -46,6 +48,31 @@ public abstract class MyShape {
     //拖拽时isDrag设为true，好在拖拽后触发单击事件时，把选中框设为选中。
     //而如果只单击的话，单击一下设为选中，再单击一下又设为不选中
     boolean isDrag = false;
+
+    // 定义一个Map来存储颜色名称和对应的Color对象
+    private static final Map<String, Color> colorMap = new HashMap<>();
+
+    // 静态代码块，初始化颜色映射
+    static {
+        colorMap.put("蓝", Color.web("#BBE9FF"));
+        colorMap.put("红", Color.web("#FF5580"));
+        colorMap.put("绿", Color.web("#CDFADB"));
+        colorMap.put("黄", Color.web("#F6FFA4"));
+        colorMap.put("紫", Color.web("#E2BBE9"));
+        colorMap.put("黑", Color.web("#474F7A"));
+        //colorMap.put("白", Color.web("#EEF7FF"));
+        colorMap.put("白", Color.WHITE);
+    }
+
+    /*// 根据字符串设置颜色的方法
+    public void setColorByString(String colorName) {
+        Color color = colorMap.get(colorName);
+        if (color != null) {
+            this.setFill(color);
+        } else {
+            System.out.println("未找到颜色：" + colorName);
+        }
+    }*/
 
     public String getKind() {
         return kind;
@@ -150,10 +177,14 @@ public abstract class MyShape {
         this.text = new Text();
         this.drawPoints = new DrawPoints();
         createDrawPoints();
-        shape.setFill(Color.WHITE);
+        //shape.setFill(Color.WHITE);
         shape.setStroke(Color.BLACK);
         addListener();
         editer.myshape = this;
+
+        //System.out.println(kind);
+        // 设置颜色
+        shape.setFill(colorMap.get(RootLayoutController.imageToColorMaps.get(kind)));
     }
 
     // 移动形状的四个连接点

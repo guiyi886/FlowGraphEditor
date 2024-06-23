@@ -32,3 +32,10 @@
 .menultem:hover {
     -fx-border-style: solid;
 }
+
+.label {
+    -fx-cursor: hand;
+    -fx-font-size: 18px; /* 设置文本的字体大小 */
+    /*-fx-background-color: #587aff;*/
+}
+
