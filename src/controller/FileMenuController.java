@@ -81,6 +81,60 @@ public class FileMenuController {
         }
     }
 
+    public void menuBeginEnd(ShapeFactory shapeFactory, DrawController drawController) {
+        File selectedFile = new File("src/controller/graph/begin&end");
+        try {
+            // 从文件中读取绘图区内容并创建相应的形状和线条
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(selectedFile));
+            ArrayList<MyShapeAndMyLine> list = (ArrayList<MyShapeAndMyLine>) ois.readObject();
+            ArrayList<ArrayList<String>> cssList = new ArrayList<ArrayList<String>>();
+
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getId() > maxId) {
+                    maxId = list.get(i).getId();
+                }
+                shapeFactory.produce(list.get(i).getKind(), list.get(i).getX(), list.get(i).getY(), list.get(i).getWidth(), list.get(i).getHeight(), list.get(i).getText(), list.get(i).getId());
+                cssList.add(list.get(i).getConnectionInfosString());
+            }
+
+            // 设置连接信息
+            for (int i = 0; i < drawController.getList().size(); i++) {
+                drawController.getList().get(i).setCSS(cssList.get(i));
+            }
+
+            ShapeFactory.countShapeID = maxId + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void menuInOut(ShapeFactory shapeFactory, DrawController drawController) {
+        File selectedFile = new File("src/controller/graph/in&out");
+        try {
+            // 从文件中读取绘图区内容并创建相应的形状和线条
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(selectedFile));
+            ArrayList<MyShapeAndMyLine> list = (ArrayList<MyShapeAndMyLine>) ois.readObject();
+            ArrayList<ArrayList<String>> cssList = new ArrayList<ArrayList<String>>();
+
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getId() > maxId) {
+                    maxId = list.get(i).getId();
+                }
+                shapeFactory.produce(list.get(i).getKind(), list.get(i).getX(), list.get(i).getY(), list.get(i).getWidth(), list.get(i).getHeight(), list.get(i).getText(), list.get(i).getId());
+                cssList.add(list.get(i).getConnectionInfosString());
+            }
+
+            // 设置连接信息
+            for (int i = 0; i < drawController.getList().size(); i++) {
+                drawController.getList().get(i).setCSS(cssList.get(i));
+            }
+
+            ShapeFactory.countShapeID = maxId + 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // 导出绘图区内容为图片
     public void exportDrawingArea(AnchorPane drawingArea) {
         Stage stage = new Stage();
@@ -115,4 +169,6 @@ public class FileMenuController {
         stage1.setTitle("help");
         stage1.show();
     }
+
+
 }

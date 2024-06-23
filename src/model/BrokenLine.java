@@ -81,7 +81,7 @@ public class BrokenLine extends MyLine {
         text.setX((startX + endX) / 2);
         text.setY(endY);
 
-        System.out.println(kind);
+        //System.out.println(kind);
         polyline.setStroke(colorMap.get(RootLayoutController.imageToColorMaps.get(kind)));
         polygon.setFill(colorMap.get(RootLayoutController.imageToColorMaps.get(kind)));
 

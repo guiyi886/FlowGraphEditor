@@ -177,6 +177,16 @@ public class RootLayoutController implements Initializable {
         menuController.exportDrawingArea(drawingArea);
     }
 
+    public void menuBeginEnd() {
+        menuNew();
+        menuController.menuBeginEnd(shapeFactory, drawController);
+    }
+
+    public void menuInOut() {
+        menuNew();
+        menuController.menuInOut(shapeFactory, drawController);
+    }
+
     // 帮助菜单操作，显示帮助页面
     public void menuHelp() {
         menuController.help();

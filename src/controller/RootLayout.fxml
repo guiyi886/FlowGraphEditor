@@ -17,6 +17,12 @@
                         <MenuItem mnemonicParsing="false" onAction="#menuExport" text="导出"/>
                     </items>
                 </Menu>
+                <Menu mnemonicParsing="false" text="图形库">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#menuBeginEnd" text="开始/结束"/>
+                        <MenuItem mnemonicParsing="false" onAction="#menuInOut" text="输入/输出"/>
+                    </items>
+                </Menu>
                 <Menu mnemonicParsing="false" text="帮助">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#menuHelp" text="关于"/>
