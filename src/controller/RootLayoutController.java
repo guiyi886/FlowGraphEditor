@@ -11,8 +11,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import model.MyShape;
+import model.MyShapeAndMyLine;
 
+import java.io.File;
+import java.io.ObjectOutputStream;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -235,7 +241,9 @@ public class RootLayoutController implements Initializable {
         drawingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+                storeLastDrawingArea();
                 drawingArea.requestFocus(); // 设置焦点以实现键盘事件
+
                 if (event.getClickCount() == 1 && selectShape != null) {
                     double x, y;
                     x = event.getX();
@@ -272,8 +280,10 @@ public class RootLayoutController implements Initializable {
 
         // 双击图形选择区的图形的情况和单击图形选择区的图形选中图形的情况
         shapeArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
             @Override
             public void handle(MouseEvent event) {
+                storeLastDrawingArea();
                 if (event.getClickCount() == 2) {
                     if (event.getTarget().getClass() == ImageView.class) {
                         int x, y;
@@ -297,5 +307,40 @@ public class RootLayoutController implements Initializable {
             String text = textField.getText();
             drawController.setText(text);
         });
+    }
+
+    public void storeLastDrawingArea() {
+
+        try {
+            // 创建文件对象
+            File file = new File("src/controller/graph/last");
+
+            /// 检查文件是否存在并尝试删除文件
+            if (file.exists()) {
+                if (file.delete()) {
+                    System.out.println("文件删除成功！");
+                } else {
+                    System.out.println("文件删除失败！");
+                    return;
+                }
+                // 确保文件系统完成删除操作
+            /*try {
+                Thread.sleep(5000); // 等待100毫秒
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }*/
+            }
+            // 将绘图区内容序列化并保存到文件
+            ArrayList<MyShapeAndMyLine> myShapeAndMyLines = drawController.translate();
+
+            // 使用 Files.newOutputStream 覆盖现有文件的内容
+            ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(file.toPath(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING));
+            oos.writeObject(myShapeAndMyLines);
+            oos.close();
+            oos.flush();
+            System.out.println("文件保存成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

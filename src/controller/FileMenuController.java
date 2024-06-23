@@ -169,6 +169,4 @@ public class FileMenuController {
         stage1.setTitle("help");
         stage1.show();
     }
-
-
 }

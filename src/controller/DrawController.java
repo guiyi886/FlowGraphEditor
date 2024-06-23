@@ -91,6 +91,7 @@ public class DrawController {
 
     // 将形状和线条转换为形状和线条组合
     public ArrayList<MyShapeAndMyLine> translate() {
+        myShapeAndMyLines.clear();  //！！！！！！
         if (list != null && list.size() != 0) {
             for (int i = 0; i < list.size(); i++) {
                 myShapeAndMyLines.add(new MyShapeAndMyLine(list.get(i)));
