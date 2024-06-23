@@ -2,4 +2,7 @@
 .idea
 out
 target
-*/graph/last*
+
+# 忽略 src/controller/graph 目录下以 last 开头的文件
+src/controller/graph/last*
+
