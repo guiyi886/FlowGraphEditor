@@ -7,7 +7,7 @@
 /*菜单栏 */
 .menu-bar {
     -fx-padding: 5 5;
-    -fx-background-color: rgb(149, 122, 243);
+    -fx-background-color: #AEDEFC;
 }
 
 .menu {
@@ -17,11 +17,20 @@
 .menu-bar .label {
     -fx-font-size: 14pt;
     -fx-opacity: 0.9;
+    /*-fx-font-weight: bold;*/
+    -fx-min-width: 50px;
+    -fx-alignment: center;
+    /*-fx-border-radius: 50px;*/
 }
 
 .menu:hover {
-    -fx-background-color: #C0C0C0;
+    -fx-background-color: #7743DB;
     -fx-padding: 3 3;
+    /*-fx-border-radius: 50px;*/
+}
+
+.menu-item:hover {
+    -fx-background-color: #7743DB;
 }
 
 /*菜单下拉栏 */
