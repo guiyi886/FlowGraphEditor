@@ -26,6 +26,9 @@ public class DrawController {
     // 不管哪个图形被双击，都把它的id赋值过来，好知道输入的文本最终要给哪个图形
     public static int writeId;
 
+    private static ArrayList<MyShape> listCopy = new ArrayList<MyShape>(); // 复制一份 存储所有形状的列表
+    private static ArrayList<MyLine> listLineCopy = new ArrayList<MyLine>(); // 复制一份 存储所有线条的列表
+
     // 构造方法，初始化绘图区面板
     public DrawController(AnchorPane drawArea) {
         drawingArea = drawArea;
@@ -234,7 +237,7 @@ public class DrawController {
     // 删除选中的形状和线条
     public void delete() {
         boolean remain = false;
-        while (true) // 删掉选中的形状，键盘操作
+        while (true) // 粘贴选中的形状，键盘操作
         {
             remain = false;
             for (int i = 0; i < list.size(); i++) {
@@ -249,7 +252,7 @@ public class DrawController {
                 break;
             }
         }
-        while (true) // 删掉选中的线
+        while (true) // 粘贴选中的线
         {
             remain = false;
             for (int i = 0; i < listLine.size(); i++) {
@@ -262,6 +265,33 @@ public class DrawController {
             }
             if (!remain) {
                 break;
+            }
+        }
+    }
+
+    // 复制形状或线条
+    public void copy() {
+        listCopy.clear();
+        listLineCopy.clear();
+        listCopy.addAll(list);
+        listLineCopy.addAll(listLine);
+    }
+
+    // 粘贴形状或线条
+    public void paste() {
+        for (int i = 0; i < listCopy.size(); i++) {
+            if (listCopy.get(i).getIsSelected()) {
+                ShapeFactory.produce(listCopy.get(i).getKind(), listCopy.get(i).getX() + 10, listCopy.get(i).getY() + +10,
+                        listCopy.get(i).getWidth(), listCopy.get(i).getHeight(), listCopy.get(i).getText().getText(),
+                        ShapeFactory.countShapeID++);
+            }
+        }
+
+        for (int i = 0; i < listLineCopy.size(); i++) {
+            if (listLineCopy.get(i).getIsSelected()) {
+                ShapeFactory.produce(listLineCopy.get(i).getKind(), listLineCopy.get(i).getSX() + 10, listLineCopy.get(i).getSY() + 10,
+                        listLineCopy.get(i).getEX(), listLineCopy.get(i).getEY(), listLineCopy.get(i).getText().getText(),
+                        ShapeFactory.countShapeID++);
             }
         }
     }
@@ -305,15 +335,5 @@ public class DrawController {
                 myLine.getText().setText(text);
             }
         }
-    }
-
-    // 复制形状或线条
-    public void copy() {
-        // TODO: 实现复制功能
-    }
-
-    // 粘贴形状或线条
-    public void paste() {
-        // TODO: 实现粘贴功能
     }
 }

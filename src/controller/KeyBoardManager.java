@@ -31,10 +31,12 @@ public class KeyBoardManager {
             }
             // 处理复制操作
             if (e.getCode() == KeyCode.C && isCtrl) {
+                System.out.println("复制");
                 drawController.copy(); // 复制选中的形状或线条
             }
             // 处理粘贴操作
             if (e.getCode() == KeyCode.V && isCtrl) {
+                System.out.println("粘贴");
                 drawController.paste(); // 粘贴形状或线条
             }
             e.consume(); // 消费事件，防止事件继续传递

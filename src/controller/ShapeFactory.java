@@ -7,7 +7,7 @@ public class ShapeFactory {
     // 只要当前程序不关闭，那么存在过的形状或线（从左边选择区新建的或打开过去的流程图的）都有个不同的 countShapeID，
     // 这个数是只增不减的。目的是为了知道是哪个 id 号的线连接的图形
     public static int countShapeID = 0;
-    private DrawController drawController;
+    private static DrawController drawController;
 
     public ShapeFactory(DrawController drawController) {
         this.drawController = drawController;
@@ -40,7 +40,7 @@ public class ShapeFactory {
      * @param text   形状或线的文本内容
      * @param id     形状或线的唯一标识符
      */
-    public void produce(String kind, double x, double y, double width, double height, String text, int id) {
+    public static void produce(String kind, double x, double y, double width, double height, String text, int id) {
         if (kind.indexOf("Line") != -1) { // 线。BrokenLine 和 MyLine 里都有 Line
             MyLine shape = null;
             switch (kind) {
@@ -92,7 +92,7 @@ public class ShapeFactory {
      * @param x    形状或线的横坐标
      * @param y    形状或线的纵坐标
      */
-    public void produce(String kind, double x, double y) {
+    public static void produce(String kind, double x, double y) {
         countShapeID++; // 给新图形分配一个比上个图形的 id 号加了 1 的 id 号
         if (kind.indexOf("Line") != -1) { // 两种线分别叫 MyLine 和 BrokenLine，都有 Line 字符
             MyLine shape = null;
