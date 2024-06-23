@@ -284,6 +284,8 @@ public class DrawController {
                 ShapeFactory.produce(listCopy.get(i).getKind(), listCopy.get(i).getX() + 10, listCopy.get(i).getY() + +10,
                         listCopy.get(i).getWidth(), listCopy.get(i).getHeight(), listCopy.get(i).getText().getText(),
                         ShapeFactory.countShapeID++);
+                list.get(i).setISelected(false);
+                list.get(i).getEditer().setAllVisiable(false);
             }
         }
 
@@ -292,6 +294,8 @@ public class DrawController {
                 ShapeFactory.produce(listLineCopy.get(i).getKind(), listLineCopy.get(i).getSX() + 10, listLineCopy.get(i).getSY() + 10,
                         listLineCopy.get(i).getEX(), listLineCopy.get(i).getEY(), listLineCopy.get(i).getText().getText(),
                         ShapeFactory.countShapeID++);
+                listLineCopy.get(i).setIsSelected(false);
+                listLine.get(i).setAllVisiable(false);
             }
         }
     }
