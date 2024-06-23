@@ -81,7 +81,7 @@ public class BrokenLine extends MyLine {
         text.setX((startX + endX) / 2);
         text.setY(endY);
 
-        setAllVisiable(true); // 设置图形为可见
+        //setAllVisiable(true); // 设置图形为可见 ！！！！
     }
 
     /**

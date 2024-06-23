@@ -466,6 +466,6 @@ public class MyLine {
         for (int i = 0; i < 2; i++) {
             circles[i].setVisible(state);
         }
-        //isSelected = state;
+        isSelected = state;
     }
 }
