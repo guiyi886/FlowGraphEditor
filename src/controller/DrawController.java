@@ -283,9 +283,9 @@ public class DrawController {
             if (listCopy.get(i).getIsSelected()) {
                 ShapeFactory.produce(listCopy.get(i).getKind(), listCopy.get(i).getX() + 10, listCopy.get(i).getY() + +10,
                         listCopy.get(i).getWidth(), listCopy.get(i).getHeight(), listCopy.get(i).getText().getText(),
-                        ShapeFactory.countShapeID++);
-                list.get(i).setISelected(false);
-                list.get(i).getEditer().setAllVisiable(false);
+                        ++ShapeFactory.countShapeID);
+                listCopy.get(i).setISelected(false);
+                listCopy.get(i).getEditer().setAllVisiable(false);
             }
         }
 
@@ -293,9 +293,9 @@ public class DrawController {
             if (listLineCopy.get(i).getIsSelected()) {
                 ShapeFactory.produce(listLineCopy.get(i).getKind(), listLineCopy.get(i).getSX() + 10, listLineCopy.get(i).getSY() + 10,
                         listLineCopy.get(i).getEX(), listLineCopy.get(i).getEY(), listLineCopy.get(i).getText().getText(),
-                        ShapeFactory.countShapeID++);
+                        ++ShapeFactory.countShapeID);
                 listLineCopy.get(i).setIsSelected(false);
-                listLine.get(i).setAllVisiable(false);
+                listLineCopy.get(i).setAllVisiable(false);
             }
         }
     }
