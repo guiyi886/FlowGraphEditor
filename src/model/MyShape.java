@@ -179,7 +179,9 @@ public abstract class MyShape {
                 delInfo = info;
             }
         }
-        if (delInfo != null) connectionInfos.remove(delInfo);
+        if (delInfo != null) {
+            connectionInfos.remove(delInfo);
+        }
     }
 
     /**
@@ -224,6 +226,7 @@ public abstract class MyShape {
         getPane(drawingArea, drawController);
     }
 
+    // 鼠标在场景中的位置与图形中心点位置之间的偏移量
     double tOFFX;//这两个值只用于鼠标拖动
     double tOFFY;
 
@@ -263,7 +266,7 @@ public abstract class MyShape {
     public void click(MouseEvent e) {
         if (e.getClickCount() == 1) {
             if (this.isDrag == true) {
-                drawController.clearAllOnEdit();
+                //drawController.clearAllOnEdit(); ！！！！
                 editer.setAllVisiable(true);
                 this.setToTop();//几个图形重叠时，会把当前图形放到其他图形上面
             } else if (isSelected == false) {
@@ -297,9 +300,56 @@ public abstract class MyShape {
     //只要一拖拽图形，就会有drag();即重新设置连接点，连接线，图形，选中框，图形上文字
     public void drag(MouseEvent e) {
         isDrag = true;
+        double xx = x, yy = y;
 
         this.setX(e.getSceneX() - tOFFX);
         this.setY(e.getSceneY() - tOFFY);
+        createDrawPoints();//移动图形的那四个连接点
+        update();//当文字发生改变的时候，更新图形中的文字的内容和文字的位置
+        lineMove();//MyShape类里的函数，用来根据图形的连线信息，重新设置连接线位置
+
+        //拖动图形时，设置选中框也跟着移动
+        editer.getFrame().setX(this.x - this.width - 10);
+        editer.getFrame().setY(this.y - this.height - 10);
+        editer.getFrame().setWidth(2 * this.width + 20);
+        editer.getFrame().setHeight(2 * this.height + 20);
+        editer.getCircles()[0].setCenterX(editer.getFrame().getX());
+        editer.getCircles()[1].setCenterX(editer.getFrame().getX());
+        editer.getCircles()[2].setCenterX(editer.getFrame().getX());
+        editer.getCircles()[3].setCenterX(editer.getFrame().getX() + editer.getFrame().getWidth() / 2);
+        editer.getCircles()[4].setCenterX(editer.getFrame().getX() + editer.getFrame().getWidth() / 2);
+        editer.getCircles()[5].setCenterX(editer.getFrame().getX() + editer.getFrame().getWidth() / 2);
+        editer.getCircles()[6].setCenterX(editer.getFrame().getX() + editer.getFrame().getWidth());
+        editer.getCircles()[7].setCenterX(editer.getFrame().getX() + editer.getFrame().getWidth());
+        editer.getCircles()[8].setCenterX(editer.getFrame().getX() + editer.getFrame().getWidth());
+
+        editer.getCircles()[0].setCenterY(editer.getFrame().getY());
+        editer.getCircles()[1].setCenterY(editer.getFrame().getY() + editer.getFrame().getHeight() / 2);
+        editer.getCircles()[2].setCenterY(editer.getFrame().getY() + editer.getFrame().getHeight());
+        editer.getCircles()[3].setCenterY(editer.getFrame().getY());
+        editer.getCircles()[4].setCenterY(editer.getFrame().getY() + editer.getFrame().getHeight() / 2);
+        editer.getCircles()[5].setCenterY(editer.getFrame().getY() + editer.getFrame().getHeight());
+        editer.getCircles()[6].setCenterY(editer.getFrame().getY());
+        editer.getCircles()[7].setCenterY(editer.getFrame().getY() + editer.getFrame().getHeight() / 2);
+        editer.getCircles()[8].setCenterY(editer.getFrame().getY() + editer.getFrame().getHeight());
+
+        if (getIsSelected()) {
+            for (int i = 0; i < drawController.getList().size(); i++) {
+                if (drawController.getList().get(i).getId() != id && drawController.getList().get(i).getIsSelected()) {
+                    drawController.getList().get(i).dragXY(x - xx, y - yy);
+                }
+            }
+            for (int i = 0; i < drawController.getListLine().size(); i++) {
+                if (drawController.getListLine().get(i).getId() != id && drawController.getListLine().get(i).getIsSelected()) {
+                    drawController.getListLine().get(i).dragXY(x - xx, y - yy);
+                }
+            }
+        }
+    }
+
+    public void dragXY(double dx, double dy) {
+        this.setX(this.getX() + dx);
+        this.setY(this.getY() + dy);
         createDrawPoints();//移动图形的那四个连接点
         update();//当文字发生改变的时候，更新图形中的文字的内容和文字的位置
         lineMove();//MyShape类里的函数，用来根据图形的连线信息，重新设置连接线位置

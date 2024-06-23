@@ -21,6 +21,11 @@ public class MyLine {
 
     // 基本属性
     protected int id;
+
+    public int getId() {
+        return id;
+    }
+
     protected AnchorPane drawingArea;
     protected DrawController drawController;
     protected double startX; // 有箭头的一端
@@ -213,7 +218,7 @@ public class MyLine {
         text.setX((startX + endX) / 2);
         text.setY((startY + endY) / 2);
 
-        setAllVisiable(true); // 设置可见状态
+        //setAllVisiable(true); // 设置可见状态 ！！！！！
     }
 
     /**
@@ -283,6 +288,7 @@ public class MyLine {
             textField.setText(text.getText());
             setAllVisiable(false);
         }
+        this.isDrag = false;
     }
 
     /**
@@ -384,17 +390,7 @@ public class MyLine {
             lastY = e.getY();
         });
         line.setOnMouseDragged(e -> {
-            double dx = e.getX() - lastX;
-            double dy = e.getY() - lastY;
-            lastX = e.getX();
-            lastY = e.getY();
-            this.setSX(this.startX + dx);
-            this.setSY(this.startY + dy);
-            this.setEX(this.endX + dx);
-            this.setEY(this.endY + dy);
-            drawController.checkDistanceToPoints(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY(), this);
-            this.isDrag = true;
-
+            drag(e);
         });
         line.setOnMouseReleased(e -> {
             if (startLinkShape != null)
@@ -433,10 +429,43 @@ public class MyLine {
         });
     }
 
+    public void drag(MouseEvent e) {
+        double dx = e.getX() - lastX;
+        double dy = e.getY() - lastY;
+        lastX = e.getX();
+        lastY = e.getY();
+        this.setSX(this.startX + dx);
+        this.setSY(this.startY + dy);
+        this.setEX(this.endX + dx);
+        this.setEY(this.endY + dy);
+        drawController.checkDistanceToPoints(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY(), this);
+        this.isDrag = true;
+
+        for (int i = 0; i < drawController.getList().size(); i++) {
+            if (drawController.getList().get(i).getId() != id && drawController.getList().get(i).getIsSelected()) {
+                drawController.getList().get(i).dragXY(dx, dy);
+            }
+        }
+        for (int i = 0; i < drawController.getListLine().size(); i++) {
+            if (drawController.getListLine().get(i).getId() != id && drawController.getListLine().get(i).getIsSelected()) {
+                drawController.getListLine().get(i).dragXY(dx, dy);
+            }
+        }
+    }
+
+    public void dragXY(double dx, double dy) {
+        this.setSX(this.startX + dx);
+        this.setSY(this.startY + dy);
+        this.setEX(this.endX + dx);
+        this.setEY(this.endY + dy);
+        drawController.checkDistanceToPoints(line.getStartX(), line.getStartY(), line.getEndX(), line.getEndY(), this);
+        this.isDrag = true;
+    }
+
     public void setAllVisiable(boolean state) {
         for (int i = 0; i < 2; i++) {
             circles[i].setVisible(state);
         }
-        isSelected = state;
+        //isSelected = state;
     }
 }
