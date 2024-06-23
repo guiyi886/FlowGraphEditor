@@ -281,7 +281,7 @@ public class DrawController {
     public void paste() {
         for (int i = 0; i < listCopy.size(); i++) {
             if (listCopy.get(i).getIsSelected()) {
-                ShapeFactory.produce(listCopy.get(i).getKind(), listCopy.get(i).getX() + 10, listCopy.get(i).getY() + +10,
+                ShapeFactory.produce(listCopy.get(i).getKind(), listCopy.get(i).getX() + 20, listCopy.get(i).getY() + +20,
                         listCopy.get(i).getWidth(), listCopy.get(i).getHeight(), listCopy.get(i).getText().getText(),
                         ++ShapeFactory.countShapeID);
                 listCopy.get(i).setISelected(false);
@@ -291,7 +291,7 @@ public class DrawController {
 
         for (int i = 0; i < listLineCopy.size(); i++) {
             if (listLineCopy.get(i).getIsSelected()) {
-                ShapeFactory.produce(listLineCopy.get(i).getKind(), listLineCopy.get(i).getSX() + 10, listLineCopy.get(i).getSY() + 10,
+                ShapeFactory.produce(listLineCopy.get(i).getKind(), listLineCopy.get(i).getSX() + 20, listLineCopy.get(i).getSY() + 20,
                         listLineCopy.get(i).getEX(), listLineCopy.get(i).getEY(), listLineCopy.get(i).getText().getText(),
                         ++ShapeFactory.countShapeID);
                 listLineCopy.get(i).setIsSelected(false);
