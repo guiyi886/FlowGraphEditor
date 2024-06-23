@@ -164,7 +164,7 @@ public class FileMenuController {
         imageView.setImage(image);
         root.setCenter(imageView);
 
-        Scene scene = new Scene(root, 770, 550);
+        Scene scene = new Scene(root, 1000, 800);
         stage1.setScene(scene);
         stage1.setTitle("help");
         stage1.show();
