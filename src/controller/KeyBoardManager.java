@@ -19,8 +19,23 @@ public class KeyBoardManager {
 
     private DrawController drawController; // 绘图区控制器
     private AnchorPane drawingArea; // 绘图区
-    public static Stack<String> lastDrawingArea = new Stack<>();
+    // volatile保证线程间修改可见，但还是不保证原子性
+    private static volatile Stack<String> lastDrawingArea = new Stack<>();
     public static int lastNum = 0;
+
+    private KeyBoardManager() {
+    }
+
+    public static Stack<String> getLastDrawingArea() {
+        if (lastDrawingArea == null) {
+            synchronized (KeyBoardManager.class) {
+                if (lastDrawingArea == null) {
+                    lastDrawingArea = new Stack<String>();
+                }
+            }
+        }
+        return lastDrawingArea;
+    }
 
     // 构造函数，接受绘图区控制器实例，并初始化成员变量
     public KeyBoardManager(DrawController drawController) {
@@ -91,7 +106,7 @@ public class KeyBoardManager {
             String path = "src/controller/graph/last" + lastNum;
             lastNum++;
             File file = new File(path);
-            lastDrawingArea.push(path);
+            getLastDrawingArea().push(path);
 
             /// 检查文件是否存在并尝试删除文件
             /*if (file.exists()) {
@@ -155,7 +170,7 @@ public class KeyBoardManager {
         if (lastDrawingArea.empty()) {
             return;
         }
-        String url = lastDrawingArea.pop();
+        String url = getLastDrawingArea().pop();
         lastNum--;
 
         // 目标文件路径
