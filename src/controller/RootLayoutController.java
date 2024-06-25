@@ -11,14 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import model.MyShape;
-import model.MyShapeAndMyLine;
 
-import java.io.File;
-import java.io.ObjectOutputStream;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -268,10 +262,11 @@ public class RootLayoutController implements Initializable {
         drawingArea.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                storeLastDrawingArea();
+                drawController.getKeyBoardManager().storeLastDrawingArea();
                 drawingArea.requestFocus(); // 设置焦点以实现键盘事件
 
                 if (event.getClickCount() == 1 && selectShape != null) {
+                    System.out.println(1111);
                     double x, y;
                     x = event.getX();
                     y = event.getY();
@@ -280,24 +275,29 @@ public class RootLayoutController implements Initializable {
                 } else if (event.getClickCount() == 1 && selectShape == null) {
                     // 点击 drawingArea 空白处时，所有形状设置为未选中
                     if (clickCount == 1) {
+                        System.out.println(2222);
                         clickCount = 0;
                         if (textField.isVisible() == true) // 文本框可见时
                         {
+                            System.out.println(22221111);
                             textField.setVisible(false);
                             String text = textField.getText();
                             drawController.setText(text);
                         }
                     } else if (clickCount == 0) // 点空白处
                     {
+                        System.out.println(3333);
                         drawController.clearAllOnEdit();
                         if (textField.isVisible() == true) // 文本框可见时
                         {
+                            System.out.println(33331111);
                             textField.setVisible(false);
                             String text = textField.getText();
                             drawController.setText(text);
                         }
                     }
                 } else if (event.getClickCount() == 2) {
+                    System.out.println(4444);
                     // 双击图形时，触发的事件是：先单击了图形，再单击了面板，再双击图形，再双击面板。
                     // 所以双击图形后生成的单行输入框，给该单行输入框设置焦点要在这里设置
                     textField.requestFocus();
@@ -310,8 +310,8 @@ public class RootLayoutController implements Initializable {
 
             @Override
             public void handle(MouseEvent event) {
-                storeLastDrawingArea();
                 if (event.getClickCount() == 2) {
+                    drawController.getKeyBoardManager().storeLastDrawingArea();
                     if (event.getTarget().getClass() == ImageView.class) {
                         int x, y;
                         x = 550;
@@ -334,40 +334,5 @@ public class RootLayoutController implements Initializable {
             String text = textField.getText();
             drawController.setText(text);
         });
-    }
-
-    public void storeLastDrawingArea() {
-
-        try {
-            // 创建文件对象
-            File file = new File("src/controller/graph/last");
-
-            /// 检查文件是否存在并尝试删除文件
-            if (file.exists()) {
-                /*if (file.delete()) {
-                    System.out.println("文件删除成功！");
-                } else {
-                    System.out.println("文件删除失败！");
-                    return;
-                }*/
-                // 确保文件系统完成删除操作
-            /*try {
-                Thread.sleep(5000); // 等待100毫秒
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }*/
-            }
-            // 将绘图区内容序列化并保存到文件
-            ArrayList<MyShapeAndMyLine> myShapeAndMyLines = drawController.translate();
-
-            // 使用 Files.newOutputStream 覆盖现有文件的内容
-            ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(file.toPath(), StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING));
-            oos.writeObject(myShapeAndMyLines);
-            oos.close();
-            oos.flush();
-            System.out.println("文件保存成功！");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

@@ -297,7 +297,7 @@ public abstract class MyShape {
     public void click(MouseEvent e) {
         if (e.getClickCount() == 1) {
             if (this.isDrag == true) {
-                //drawController.clearAllOnEdit(); ！！！！
+                //drawController.clearAllOnEdit(); //！！！！
                 editer.setAllVisiable(true);
                 this.setToTop();//几个图形重叠时，会把当前图形放到其他图形上面
             } else if (isSelected == false) {
