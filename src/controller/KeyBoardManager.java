@@ -88,12 +88,12 @@ public class KeyBoardManager {
 
             /// 检查文件是否存在并尝试删除文件
             if (file.exists()) {
-                if (file.delete()) {
+                /*if (file.delete()) {
                     System.out.println("文件删除成功！");
                 } else {
                     System.out.println("文件删除失败！");
                     return;
-                }
+                }*/
                 // 确保文件系统完成删除操作
             /*try {
                 Thread.sleep(5000); // 等待100毫秒
@@ -135,15 +135,17 @@ public class KeyBoardManager {
         drawController.getListLine().clear();
         drawController.getMyShapeAndMyLines().clear();
         // 调试代码
-        System.out.println("Cleared drawingArea children: " + drawingArea.getChildren().size());
+        /*System.out.println("Cleared drawingArea children: " + drawingArea.getChildren().size());
         System.out.println("Cleared drawController list: " + drawController.getList().size());
         System.out.println("Cleared drawController listLine: " + drawController.getListLine().size());
         System.out.println("Cleared drawController myShapeAndMyLines: " + drawController.getMyShapeAndMyLines().size());
+        */
 
         // 源文件路径
         Path sourcePath = Paths.get("src/controller/graph/last");
 
-        String url = "src/controller/graph/lastNow" + Math.random() * 10000;
+        //String url = "src/controller/graph/lastNow" + Math.random() * 10000;
+        String url = "src/controller/graph/last";
         // 目标文件路径
         Path targetPath = Paths.get(url);
         try {
@@ -155,7 +157,7 @@ public class KeyBoardManager {
         }
 
         File selectedFile = new File(url);
-        try {
+        /*try {
             // 从文件中读取绘图区内容并创建相应的形状和线条
             ObjectInputStream ois = new ObjectInputStream(new FileInputStream(selectedFile));
             ArrayList<MyShapeAndMyLine> list = (ArrayList<MyShapeAndMyLine>) ois.readObject();
@@ -175,8 +177,42 @@ public class KeyBoardManager {
             }
 
             ShapeFactory.countShapeID = maxId + 1;
+            ois.close();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
+        try {
+            // 从文件中读取绘图区内容并创建相应的形状和线条
+            try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(selectedFile))) {
+                ArrayList<MyShapeAndMyLine> list = (ArrayList<MyShapeAndMyLine>) ois.readObject();
+                ArrayList<ArrayList<String>> cssList = new ArrayList<>();
+
+                for (MyShapeAndMyLine item : list) {
+                    if (item.getId() > maxId) {
+                        maxId = item.getId();
+                    }
+                    ShapeFactory.produce(item.getKind(), item.getX(), item.getY(), item.getWidth(), item.getHeight(), item.getText(), item.getId());
+                    cssList.add(item.getConnectionInfosString());
+                }
+
+                // 设置连接信息
+                for (int i = 0; i < drawController.getList().size(); i++) {
+                    drawController.getList().get(i).setCSS(cssList.get(i));
+                }
+
+                ShapeFactory.countShapeID = maxId + 1;
+            }
+            System.out.println("文件读取并处理成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }/*
+
+        // 等待文件系统处理
+        try {
+            Thread.sleep(100); // 等待100毫秒
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }*/
+
     }
 }

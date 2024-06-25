@@ -344,12 +344,12 @@ public class RootLayoutController implements Initializable {
 
             /// 检查文件是否存在并尝试删除文件
             if (file.exists()) {
-                if (file.delete()) {
+                /*if (file.delete()) {
                     System.out.println("文件删除成功！");
                 } else {
                     System.out.println("文件删除失败！");
                     return;
-                }
+                }*/
                 // 确保文件系统完成删除操作
             /*try {
                 Thread.sleep(5000); // 等待100毫秒
