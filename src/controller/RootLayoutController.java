@@ -73,7 +73,8 @@ public class RootLayoutController implements Initializable {
 
     //private final Color[] colors = {Color.BLUE, Color.RED, Color.PURPLE};
     private final String[] colorNames = {"白", "黑", "蓝", "红", "绿", "黄", "紫",};
-    private int colorIndex = 0;
+    //private int colorIndex = 0;
+    private final Map<String, Integer> myColorIndex = new HashMap<>();
     public static final Map<String, String> imageToColorMaps = new HashMap<>();
 
     /*@FXML
@@ -109,6 +110,7 @@ public class RootLayoutController implements Initializable {
     }*/
 
     private void setupImageView(ImageView imageView, Label colorLabel) {
+        // 初始化颜色、颜色文本值、颜色文本框颜色
         String shapeName = imageView.getId();
         if (shapeName.equals("Rectangle")) {
             //System.out.println(111);
@@ -118,18 +120,27 @@ public class RootLayoutController implements Initializable {
         }
         if (imageView.getId().equals("MyLine") || imageView.getId().equals("BrokenLine")) {
             imageToColorMaps.put(shapeName, colorNames[1]);
+            myColorIndex.put(shapeName, 1);
+            String newColorName = colorNames[1];
+            colorLabel.setText(newColorName);
+            String argbColor = colorMap.get(newColorName).toString(); // 32位的ARGB颜色值
+            String color = argbColor.substring(2, 8);
+            colorLabel.setStyle("-fx-background-color: #" + color + ";");
+
         } else {
             imageToColorMaps.put(shapeName, colorNames[0]);
+            myColorIndex.put(shapeName, 0);
+            String newColorName = colorNames[0];
+            colorLabel.setText(newColorName);
+            String argbColor = colorMap.get(newColorName).toString(); // 32位的ARGB颜色值
+            String color = argbColor.substring(2, 8);
+            colorLabel.setStyle("-fx-background-color: #" + color + ";");
         }
+
         colorLabel.setOnMouseClicked(event -> {
             //String str=imageView.getId();
             //System.out.println(imageView.getId());
-            // 切换颜色
-            colorIndex = (colorIndex + 1) % colorNames.length;
-            String newColorName = colorNames[colorIndex];
 
-            // 更新颜色文本
-            colorLabel.setText(newColorName);
 
             String shapeName2 = imageView.getId();
             if (shapeName2.equals("Rectangle")) {
@@ -140,6 +151,14 @@ public class RootLayoutController implements Initializable {
             }/*else if(shapeName.equals("BrokenLine")){
                 shapeName="MyRectangle";
             }*/
+
+            // 切换颜色
+            int colorIndex = (myColorIndex.get(shapeName2) + 1) % colorNames.length;
+            String newColorName = colorNames[colorIndex];
+            myColorIndex.put(shapeName2, colorIndex);
+
+            // 更新颜色文本
+            colorLabel.setText(newColorName);
             String argbColor = colorMap.get(newColorName).toString(); // 32位的ARGB颜色值
 
             String color = argbColor.substring(2, 8);
@@ -165,6 +184,14 @@ public class RootLayoutController implements Initializable {
         drawController.getList().clear();
         drawController.getListLine().clear();
         drawController.getMyShapeAndMyLines().clear();
+        setupImageView(RoundRectangle, colorLabel1);
+        setupImageView(Rectangle, colorLabel2);
+        setupImageView(Decision, colorLabel3);
+        setupImageView(InputRectangle, colorLabel4);
+        setupImageView(Circular, colorLabel5);
+        setupImageView(CurvedRectangle, colorLabel6);
+        setupImageView(MyLine, colorLabel7);
+        setupImageView(BrokenLine, colorLabel8);
     }
 
     // 保存菜单操作，调用保存方法
