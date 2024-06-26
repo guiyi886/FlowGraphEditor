@@ -109,6 +109,7 @@ public class BrokenLine extends MyLine {
     public void delete() {
         // 从绘图区移除折线、箭头、文本和圆点
         drawingArea.getChildren().remove(polyline);
+        drawingArea.getChildren().remove(line);
         drawingArea.getChildren().remove(polygon);
         drawingArea.getChildren().remove(text);
         drawingArea.getChildren().removeAll(circles);

@@ -268,6 +268,7 @@ public class DrawController {
                 break;
             }
         }
+        // todo delete的时候应该清除myShapeAndMyLines相关数据
     }
 
     // 复制形状或线条

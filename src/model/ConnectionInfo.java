@@ -31,6 +31,7 @@ public class ConnectionInfo {
         this.line = drawController.getMyLine(id); // 根据ID获取线对象
         this.location = pos;
         this.connectionPart = part;
+        this.drawController = drawController;
     }
 
     // 构造函数，通过具体参数初始化
